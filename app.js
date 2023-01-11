@@ -6,8 +6,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 mongoose.set('strictQuery', true);
-// mongoose.connect("mongodb+srv://admin-naman:test123@cluster0.3divyrr.mongodb.net/todoListDB");
-mongoose.connect("mongodb://127.0.0.1:27017/todoListDB")
+mongoose.connect("mongodb+srv://admin-naman:test123@cluster0.3divyrr.mongodb.net/todoListDB");
 const itemsSchema = {
     name: {type: String, required: true},
     type: {type: String, required: true}
