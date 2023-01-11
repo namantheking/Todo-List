@@ -6,7 +6,8 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 mongoose.set('strictQuery', true);
-mongoose.connect("mongodb+srv://admin-naman:test123@cluster0.3divyrr.mongodb.net/todoListDB");
+// mongoose.connect("mongodb+srv://admin-naman:test123@cluster0.3divyrr.mongodb.net/todoListDB");
+mongoose.connect("mongodb://127.0.0.1:27017/todoListDB")
 const itemsSchema = {
     name: {type: String, required: true},
     type: {type: String, required: true}
@@ -97,7 +98,15 @@ app.get("/favicon.ico", function(req, res){res.redirect("/")});
 app.post("/delete", function(req, res){
     const toDel = req.body.check;
     const listTitle = req.body.listName;
-    
+    if(listTitle === "Personal"){
+        Item.findByIdAndDelete(toDel, function(err){
+            if(err){
+                console.log(err);
+            }else{
+                res.redirect("/");
+            }
+        })
+    }
     Item.findById(toDel, function(err, item){
         if(item){
             Item.findByIdAndDelete(toDel, function(err){
